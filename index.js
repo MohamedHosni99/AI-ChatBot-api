@@ -22,7 +22,7 @@ app.use(
 );
 
 app.use(express.json());
-app.use(clerkMiddleware());
+
 const connect = async () => {
   try {
     await mongoose.connect(process.env.MONGO);
@@ -44,7 +44,7 @@ app.get("/api/upload", (req, res) => {
 });
 
 app.post("/api/chats", async (req, res) => {
-  const userId = req.auth.userId;
+  const userId = "test-user-id";
   const { text } = req.body;
 
   try {
@@ -97,7 +97,7 @@ app.post("/api/chats", async (req, res) => {
 
 app.get('/api/userchats', async (req, res) => {
 
-  const userId = req.auth.userId;
+  const userId = "test-user-id";
   
   try {
     const userChats = await UserChats.find({ userId });
@@ -110,7 +110,7 @@ app.get('/api/userchats', async (req, res) => {
 
 app.get('/api/chats/:id', async (req, res) => {
 
-  const userId = req.auth.userId;
+  const userId = "test-user-id";
   
   try {
     const chat = await Chat.findOne({_id:req.params.id, userId });
@@ -122,7 +122,7 @@ app.get('/api/chats/:id', async (req, res) => {
 });
 
 app.put("/api/chats/:id", async (req, res) => {
-  const userId = req.auth.userId;
+  const userId = "test-user-id";
 
   const { question, answer, img } = req.body;
 
