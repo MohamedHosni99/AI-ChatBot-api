@@ -4,10 +4,8 @@ import ImageKit from "imagekit";
 import mongoose from "mongoose";
 import Chat from "./models/chat.js";
 import UserChats from "./models/userChats.js";
-import { clerkMiddleware, requireAuth } from "@clerk/express"; 
+
 import dotenv from 'dotenv';
-// import path from 'path';
-// import url, { fileURLToPath } from 'url';
 
 
 dotenv.config();
@@ -15,8 +13,6 @@ dotenv.config();
 const port = process.env.PORT ;
 const app = express();
 
-// const __filename = fileURLToPath (import.meta.url);
-// const __dirname = path.dirname(__filename)
 
 app.use(
   cors({
@@ -47,7 +43,7 @@ app.get("/api/upload", (req, res) => {
   res.send(result);
 });
 
-app.post("/api/chats", requireAuth(), async (req, res) => {
+app.post("/api/chats", async (req, res) => {
   const userId = req.auth.userId;
   const { text } = req.body;
 
@@ -99,7 +95,7 @@ app.post("/api/chats", requireAuth(), async (req, res) => {
 });
 
 
-app.get('/api/userchats', requireAuth(), async (req, res) => {
+app.get('/api/userchats', async (req, res) => {
 
   const userId = req.auth.userId;
   
@@ -112,7 +108,7 @@ app.get('/api/userchats', requireAuth(), async (req, res) => {
   }
 });
 
-app.get('/api/chats/:id', requireAuth(), async (req, res) => {
+app.get('/api/chats/:id', async (req, res) => {
 
   const userId = req.auth.userId;
   
@@ -125,7 +121,7 @@ app.get('/api/chats/:id', requireAuth(), async (req, res) => {
   }
 });
 
-app.put("/api/chats/:id", requireAuth(), async (req, res) => {
+app.put("/api/chats/:id", async (req, res) => {
   const userId = req.auth.userId;
 
   const { question, answer, img } = req.body;
